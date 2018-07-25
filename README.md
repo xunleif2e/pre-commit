@@ -14,7 +14,7 @@ It's advised to install the **pre-commit** module as a `devDependencies` in your
 module simply run:
 
 ```
-npm install --save-dev pre-commit
+npm install --save-dev @xunlei/pre-commit
 ```
 
 To install it as `devDependency`. When this module is installed it will override
