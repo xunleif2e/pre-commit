@@ -1,5 +1,5 @@
 {
-  "name": "pre-commit",
+  "name": "@xunlei/pre-commit",
   "version": "1.2.2",
   "description": "Automatically install pre-commit hooks for your npm modules.",
   "main": "index.js",
@@ -9,8 +9,7 @@
     "example-pass": "echo \"This is the example hook, I exit with 0\" && exit 0",
     "install": "node install.js",
     "test": "mocha test.js",
-    "test-travis": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- test.js",
-    "uninstall": "node uninstall.js"
+    "test-travis": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- test.js"
   },
   "repository": {
     "type": "git",
