@@ -30,21 +30,10 @@ the existing `pre-commit` file in your `.git/hooks` folder. Existing
 
 ### Configuration
 
-`pre-commit` will try to run your `npm test` command in the root of the git
-repository by default unless it's the default value that is set by the `npm
-init` script. 
+`pre-commit` will try to run your `npm run pre-commit` command in the root of the pakeage.json
+path by default.
 
-But `pre-commit` is not limited to just running your `npm test`'s during the
-commit hook. It's also capable of running every other script that you've
-specified in your `package.json` "scripts" field. So before people commit you
-could ensure that:
-
-- You have 100% coverage
-- All styling passes.
-- JSHint passes.
-- Contribution licenses signed etc.
-
-The only thing you need to do is add a `pre-commit` array to your `package.json`
+The only thing you need to do is add a `pre-commit` script to your `package.json`
 that specifies which scripts you want to have ran and in which order:
 
 ```js
@@ -55,65 +44,12 @@ that specifies which scripts you want to have ran and in which order:
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: I SHOULD FAIL LOLOLOLOLOL \" && exit 1",
-    "foo": "echo \"fooo\" && exit 0",
-    "bar": "echo \"bar\" && exit 0"
-  },
-  "pre-commit": [
-    "foo",
-    "bar",
-    "test"
-  ]
-}
-```
-
-In the example above, it will first run: `npm run foo` then `npm run bar` and
-finally `npm run test` which will make the commit fail as it returns the error
-code `1`.  If you prefer strings over arrays or `precommit` without a middle
-dash, that also works:
-
-```js
-{
-  "precommit": "foo, bar, test"
-  "pre-commit": "foo, bar, test"
-  "pre-commit": ["foo", "bar", "test"]
-  "precommit": ["foo", "bar", "test"],
-  "precommit": {
-    "run": "foo, bar, test",
-  },
-  "pre-commit": {
-    "run": ["foo", "bar", "test"],
-  },
-  "precommit": {
-    "run": ["foo", "bar", "test"],
-  },
-  "pre-commit": {
-    "run": "foo, bar, test",
+    "pre-commit": "npm run test"
   }
 }
 ```
 
-The examples above are all the same. In addition to configuring which scripts
-should be ran you can also configure the following options:
-
-- **silent** Don't output the prefixed `pre-commit:` messages when things fail
-  or when we have nothing to run. Should be a boolean.
-- **colors** Don't output colors when we write messages. Should be a boolean.
-- **template** Path to a file who's content should be used as template for the
-  git commit body.
-
-These options can either be added in the `pre-commit`/`precommit` object as keys
-or as `"pre-commit.{key}` key properties in the `package.json`:
-
-```js
-{
-  "precommit.silent": true,
-  "pre-commit": {
-    "silent": true
-  }
-}
-```
-
-It's all the same. Different styles so use what matches your project. To learn
+To learn
 more about the scripts, please read the official `npm` documentation:
 
 https://npmjs.org/doc/scripts.html
