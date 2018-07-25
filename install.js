@@ -92,17 +92,14 @@ if (exists(precommit) && !fs.lstatSync(precommit).isSymbolicLink()) {
 try { fs.unlinkSync(precommit); }
 catch (e) {}
 
-// Create generic precommit hook that launches this modules hook (as well
-// as stashing - unstashing the unstaged changes)
-// TODO: we could keep launching the old pre-commit scripts
-var hookRelativeUnixPath = hook.replace(root, '.');
+var rootPath = root
 
 if(os.platform() === 'win32') {
-  hookRelativeUnixPath = hookRelativeUnixPath.replace(/[\\\/]+/g, '/');
+   rootPath = rootPath.replace(/[\\\/]+/g, '/');
 }
 
 var precommitContent = '#!/usr/bin/env bash' + os.EOL
-  +  hookRelativeUnixPath + os.EOL
+  +  'cd ' + rootPath + ' && npm run pre-commit' + os.EOL
   + 'RESULT=$?' + os.EOL
   + '[ $RESULT -ne 0 ] && exit 1' + os.EOL
   + 'exit 0' + os.EOL;
